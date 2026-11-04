@@ -1,0 +1,5 @@
+import Link from "next/link";
+
+export function SiteHeader(){return <header className="site-header"><div className="header-inner"><Link className="brand" href="/"><span className="brand-mark">F</span>fincelio</Link><nav className="nav-links" aria-label="Main navigation"><Link href="/#calculators">Calculators</Link><Link href="/business-calculators/">Business</Link><Link href="/ecommerce-calculators/">Ecommerce</Link><Link href="/guides/">Guides</Link><Link href="/about/">About</Link></nav><Link className="header-cta" href="/#calculators">Explore tools →</Link></div></header>}
+
+export function SiteFooter(){return <footer className="site-footer"><div className="footer-inner"><span>© {new Date().getFullYear()} Fincelio. Your Numbers. Your Financial Clarity.</span><nav className="footer-links" aria-label="Footer navigation"><Link href="/about/">About</Link><Link href="/contact/">Contact</Link><Link href="/privacy-policy/">Privacy Policy</Link><Link href="/terms-and-conditions/">Terms</Link><Link href="/disclaimer/">Disclaimer</Link><Link href="/cookie-policy/">Cookie Policy</Link></nav></div></footer>}
