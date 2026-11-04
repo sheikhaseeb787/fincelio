@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fincelio.com"),
+  metadataBase: new URL("https://fincelio-sigma.vercel.app"),
   title: { default: "Fincelio — Your Numbers. Your Financial Clarity.", template: "%s | Fincelio" },
   description: "Free online business and ecommerce calculators for product costs, selling prices, profit margins, wholesale pricing and store performance.",
   alternates: { canonical: "/" },
