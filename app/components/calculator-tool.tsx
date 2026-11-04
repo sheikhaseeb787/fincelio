@@ -10,7 +10,9 @@ const [mode,setMode]=useState("price");
 const percentageLimits:Record<string,number>={targetMargin:99.99,paymentFee:99.99,marketFee:99.99,margin:99.99,tier50:100,tier100:100,tier500:100};
 const visibleFields=tool.fields.filter(f=>tool.slug!=="markup-calculator"||(mode==="price"?f.key!=="margin":mode==="reverse"?["cost","price"].includes(f.key):["markup","margin"].includes(f.key)));
 const invalid=visibleFields.filter(f=>!Number.isFinite(v[f.key])||v[f.key]<0||(f.min!==undefined&&v[f.key]<f.min)||(f.step===1&&!Number.isInteger(v[f.key]))||(percentageLimits[f.key]!==undefined&&v[f.key]>percentageLimits[f.key]));
-const x=(k:string)=>Number(v[k]??0);\nconst sellingPriceRatesInvalid=tool.slug==="selling-price-calculator"&&(x("paymentFee")+x("marketFee")+x("margin")>=100);\nconst hasInvalidInputs=invalid.length>0||sellingPriceRatesInvalid;
+const x=(k:string)=>Number(v[k]??0);
+const sellingPriceRatesInvalid=tool.slug==="selling-price-calculator"&&(x("paymentFee")+x("marketFee")+x("margin")>=100);
+const hasInvalidInputs=invalid.length>0||sellingPriceRatesInvalid;
 const results=useMemo(()=>{
 const pct=(n:number)=>n.toFixed(2)+"%";
 switch(tool.slug){
