@@ -4,8 +4,8 @@ import {notFound} from "next/navigation";
 import {guides} from "@/lib/guides";
 import {SiteHeader,SiteFooter} from "@/app/components/site-chrome";
 export function generateStaticParams(){return guides.map(guide=>({article:guide.slug}));}
-export async function generateMetadata({params}:{params:Promise<{article:string}>}):Promise<Metadata>{
- const {article}=await params;const guide=guides.find(item=>item.slug===article);
+export async function generateMetadata({params}:{params:{article:string}}):Promise<Metadata>{
+ const {article}=params;const guide=guides.find(item=>item.slug===article);
  if(!guide)return {};
  return {title:guide.title,description:guide.description,alternates:{canonical:"/guides/"+guide.slug+"/"}};
 }
