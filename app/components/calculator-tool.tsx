@@ -8,7 +8,8 @@ const [currency,setCurrency]=useState("USD");
 const [v,setV]=useState<Record<string,number>>(()=>Object.fromEntries(tool.fields.map(f=>[f.key,f.defaultValue])));
 const [mode,setMode]=useState("price");
 const percentageLimits:Record<string,number>={targetMargin:99.99,paymentFee:99.99,marketFee:99.99,margin:99.99,tier50:100,tier100:100,tier500:100};
-const invalid=tool.fields.filter(f=>!Number.isFinite(v[f.key])||v[f.key]<0||(f.min===1&&v[f.key]<=0)||(percentageLimits[f.key]!==undefined&&v[f.key]>percentageLimits[f.key]));
+const visibleFields=tool.fields.filter(f=>tool.slug!=="markup-calculator"||(mode==="price"?f.key!=="margin":mode==="reverse"?["cost","price"].includes(f.key):["markup","margin"].includes(f.key)));
+const invalid=visibleFields.filter(f=>!Number.isFinite(v[f.key])||v[f.key]<0||(f.min===1&&v[f.key]<=0)||(percentageLimits[f.key]!==undefined&&v[f.key]>percentageLimits[f.key]));
 const x=(k:string)=>Number(v[k]??0);
 const results=useMemo(()=>{
 const pct=(n:number)=>n.toFixed(2)+"%";
@@ -46,7 +47,7 @@ default:return [];
 const loadExample=()=>setV(Object.fromEntries(tool.fields.map(f=>[f.key,f.defaultValue])));
 return <section className="calc-panel" aria-label={tool.title}><div className="calc-fields"><div className="calc-title-row"><div><h2>Enter your numbers</h2><p>Results update as you change the values.</p></div><label className="currency-picker">Currency<select value={currency} onChange={e=>setCurrency(e.target.value)}>{currencies.map(c=><option key={c}>{c}</option>)}</select></label></div>
 {tool.slug==="markup-calculator"&&<label className="calc-field"><span>Calculation mode</span><select value={mode} onChange={e=>setMode(e.target.value)}><option value="price">Cost to selling price + bulk prices</option><option value="reverse">Selling price to markup</option><option value="conversion">Markup and margin conversion</option></select></label>}
-{tool.fields.filter(f=>tool.slug!=="markup-calculator"||(mode==="price"?!["margin"].includes(f.key):mode==="reverse"?["cost","price"].includes(f.key):["markup","margin"].includes(f.key))).map(f=><label className="calc-field" key={f.key}><span>{f.label}</span><input type="number" min={f.min??0} max={percentageLimits[f.key]} step="any" value={v[f.key]} aria-invalid={invalid.some(i=>i.key===f.key)} onChange={e=>setV(s=>({...s,[f.key]:e.target.value===""?0:Number(e.target.value)}))}/></label>)}
+{visibleFields.map(f=><label className="calc-field" key={f.key}><span>{f.label}</span><input type="number" min={f.min??0} max={percentageLimits[f.key]} step="any" value={v[f.key]} aria-invalid={invalid.some(i=>i.key===f.key)} onChange={e=>setV(s=>({...s,[f.key]:e.target.value===""?0:Number(e.target.value)}))}/></label>)}
 {invalid.length>0&&<p className="validation-note">Check your inputs: values cannot be negative, quantities must be above zero, target margins and fees must be below 100%, and bulk discounts cannot exceed 100%.</p>}
 </div><div className="calc-results"><span className="eyebrow">YOUR RESULTS</span>{results.map(([label,value])=><div className="result-row" key={label}><span>{label}</span><strong>{invalid.length?"Check inputs":value}</strong></div>)}<p className="calc-note">Estimates only. Use consistent currencies and verify applicable costs, taxes, duties and fees. Currency selection changes display only; it does not convert exchange rates.</p><button className="secondary-button" onClick={loadExample}>Reset values</button> <button className="secondary-button" onClick={()=>{loadExample();setMode("price")}}>Load example</button></div></section>;
 }
