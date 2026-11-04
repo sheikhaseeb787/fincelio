@@ -11,3 +11,16 @@
 
 .calculator-search{position:relative;max-width:720px}.calculator-search label{display:block;font-weight:700;font-size:13px;margin-bottom:9px}.calculator-search input{width:100%;padding:16px 17px;border:1px solid var(--line);border-radius:11px;font:inherit;outline-color:var(--green)}.search-results{position:relative;background:white;border:1px solid var(--line);border-radius:10px;margin-top:8px;box-shadow:0 10px 24px #17231c0d;overflow:hidden}.search-results a{display:flex;justify-content:space-between;gap:15px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px}.search-results a:last-child{border-bottom:0}.search-results a span{color:var(--green);font-size:12px}.search-results p{padding:4px 16px;color:var(--muted);font-size:13px}.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.steps-grid article{padding:23px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.steps-grid article>b{color:var(--green);font-size:12px;letter-spacing:1px}.steps-grid h3{font-size:18px;margin:13px 0 8px}.steps-grid p{font-size:13px;line-height:1.7;color:var(--muted)}.faq-list{max-width:850px;margin-top:24px}.validation-note{color:#a33;font-size:12px;line-height:1.5}.calc-field input[aria-invalid=true]{border-color:#c65b5b;background:#fffafa}.calc-field select{width:100%;padding:12px;border:1px solid #dce6df;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
 @media(max-width:760px){.steps-grid{grid-template-columns:1fr}.search-results a{flex-direction:column;gap:4px}}
+
+
+/* Calculator article reading layout */
+.calculator-article{max-width:860px;margin:0 auto;padding:8px 0 28px}
+.calculator-article>h2{margin-top:38px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.calculator-article section>h2{margin-top:32px}
+.calculator-article p,.calculator-article li{font-size:15px;line-height:1.85}
+.calculator-article ul{padding-left:22px}
+.calculator-article li{margin:8px 0}
+.quick-answer{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:20px 22px;margin:22px 0 30px}
+.quick-answer p{margin:8px 0 0;color:var(--ink);font-weight:500}
+.article-note{font-size:13px!important;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
+@media(max-width:600px){.calculator-article{padding-left:2px;padding-right:2px}.calculator-article p,.calculator-article li{font-size:14px}.quick-answer{padding:16px}}
